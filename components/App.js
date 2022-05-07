@@ -3,11 +3,11 @@ import CommentAdder from "../components/CommentAdder"
 import CommentsViewer from "../components/CommentsViewer"
 
 
-export default function App({ data }) {
+export default function App({ data, setData }) {
     return (
         <div className={styles.appContainer}>
             <CommentsViewer data={data} />
-            <CommentAdder />
+            <CommentAdder data={data} setData={setData} />
         </div>
     )
 }

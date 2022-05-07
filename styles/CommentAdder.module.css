@@ -1,0 +1,53 @@
+.commentAdderContainer {
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas: 
+                        'input input'
+                        'image send';
+    grid-template-rows: 100px auto;
+    grid-template-columns: auto auto;
+    row-gap: 1rem;
+}
+
+.commentAdderContainer img { grid-area: image; }
+.input { grid-area: input; }
+.send { grid-area: send; }
+
+.commentAdderContainer img {
+    max-width: 40px !important;
+    max-height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    object-fit: contain;
+    margin: auto 0 !important;
+    justify-self: flex-start;
+}
+
+.input {
+    border: 2px solid var(--very-light-gray);
+    border-radius: 10px;
+    font-size: 100%;
+    resize: none;
+    padding: 1rem 1.5rem;
+    line-height: 1.6rem;
+    color: var(--grayish-blue);
+}
+
+.input::placeholder {
+    color: var(--grayish-blue);
+    letter-spacing: 0.01rem;
+}
+
+.send {
+    background: var(--moderate-blue);
+    color: white;
+    font-size: 100%;
+    font-weight: var(--medium);
+    width: fit-content;
+    justify-self: flex-end;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    border: none;
+}
