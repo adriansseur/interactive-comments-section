@@ -15,7 +15,7 @@ export default function Comment({
         <div className={styles.commentContainer}>
             <p className={styles.username}>
                 {username}
-                {username === currentUser ? <p className={styles.you}>you</p> : ""}
+                {username === currentUser ? <span className={styles.you}>you</span> : <span></span>}
             </p>
             <Image
                 className={styles.userImage}
@@ -27,8 +27,8 @@ export default function Comment({
             <p className={styles.createdAt}>{createdAt}</p>
             <p className={styles.content}>
                 {replyingTo !== undefined ?
-                    <p className={styles.replyingTo}>@{replyingTo}</p> :
-                    ""}
+                    <span className={styles.replyingTo}>@{replyingTo}</span> :
+                    <span></span>}
                 {" " + content}</p>
             <div className={styles.scoreContainer}>
                 <button>
@@ -75,17 +75,17 @@ export default function Comment({
                             </div>
                         </button>
                     </div> :
-                    <button>
-                        <div className={styles.replyContainer}>
-                            <Image
-                                src="/assets/icons/icon-reply.svg"
-                                height={150}
-                                width={150}
-                                alt="reply"
-                            />
-                            <p>Reply</p>
-                        </div>
-                    </button>
+                        <button>
+                            <div className={styles.replyContainer}>
+                                <Image
+                                    src="/assets/icons/icon-reply.svg"
+                                    height={150}
+                                    width={150}
+                                    alt="reply"
+                                />
+                                <p>Reply</p>
+                            </div>
+                        </button>
             }
         </div>
     )
