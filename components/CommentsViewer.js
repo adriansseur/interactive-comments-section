@@ -31,7 +31,7 @@ export default function CommentsViewer({data}) {
                 </div>
             ))
             commentPackage.push(
-                <div>
+                <div className={styles.replyContainerWrapper}>
                     <div className={styles.replyLine}></div>
                     {replyPackage}
                 </div>
