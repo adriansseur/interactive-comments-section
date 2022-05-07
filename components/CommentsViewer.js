@@ -15,6 +15,7 @@ export default function CommentsViewer({data}) {
                 src={comment.user.image.png}
                 username={comment.user.username}
                 replies={comment.replies}
+                currentUser={data.currentUser.username}
             />]
         if (comment.replies.length !== 0) {
             const replyPackage = comment.replies.map(reply => (
@@ -27,6 +28,8 @@ export default function CommentsViewer({data}) {
                         src={reply.user.image.png}
                         username={reply.user.username}
                         replies={reply.replies}
+                        replyingTo={reply.replyingTo}
+                        currentUser={data.currentUser.username}
                     />
                 </div>
             ))

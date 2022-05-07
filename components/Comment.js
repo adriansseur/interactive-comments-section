@@ -7,11 +7,16 @@ export default function Comment({
     score,
     src,
     username,
-    replies
+    replies,
+    replyingTo,
+    currentUser
 }) {
     return (
         <div className={styles.commentContainer}>
-            <p className={styles.username}>{username}</p>
+            <p className={styles.username}>
+                {username}
+                {username === currentUser ? <p className={styles.you}>you</p> : ""}
+            </p>
             <Image
                 className={styles.userImage}
                 src={src}
@@ -20,7 +25,11 @@ export default function Comment({
                 alt={username}
             />
             <p className={styles.createdAt}>{createdAt}</p>
-            <p className={styles.content}>{content}</p>
+            <p className={styles.content}>
+                {replyingTo !== undefined ?
+                    <p className={styles.replyingTo}>@{replyingTo}</p> :
+                    ""}
+                {" " + content}</p>
             <div className={styles.scoreContainer}>
                 <button>
                     <Image
@@ -40,17 +49,44 @@ export default function Comment({
                     />
                 </button>
             </div> {/* score-container */}
-            <div className={styles.replyContainer}>
-                <button>
-                    <Image
-                        src="/assets/icons/icon-reply.svg"
-                        height={150}
-                        width={150}
-                        alt="reply"
-                    />
-                </button>
-                <p>Reply</p>
-            </div>
+            {
+                username === currentUser ?
+                    <div className={styles.manageContainer}>
+                        <button>
+                            <div className={styles.deleteContainer}>
+                                <Image
+                                    src="/assets/icons/icon-delete.svg"
+                                    height={150}
+                                    width={150}
+                                    alt="minus"
+                                />
+                                <p>Delete</p>
+                            </div>
+                        </button>
+                        <button>
+                            <div className={styles.editContainer}>
+                                <Image
+                                    src="/assets/icons/icon-edit.svg"
+                                    height={150}
+                                    width={150}
+                                    alt="minus"
+                                />
+                                <p>Edit</p>
+                            </div>
+                        </button>
+                    </div> :
+                    <button>
+                        <div className={styles.replyContainer}>
+                            <Image
+                                src="/assets/icons/icon-reply.svg"
+                                height={150}
+                                width={150}
+                                alt="reply"
+                            />
+                            <p>Reply</p>
+                        </div>
+                    </button>
+            }
         </div>
     )
 }
