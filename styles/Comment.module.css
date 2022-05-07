@@ -1,0 +1,97 @@
+.commentContainer {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-areas: 
+                        'userImage username createdAt'
+                        'content content content'
+                        'scoreContainer scoreContainer replyContainer'
+    ;
+    grid-template-rows: 40px auto 40px;
+    grid-template-columns: 40px 130px auto;
+    letter-spacing: 0.02rem;
+}
+
+.commentContainer button {
+    border: none;
+    background: none;
+}
+
+.userImage { grid-area: userImage; }
+.username { grid-area: username; }
+.createdAt { grid-area: createdAt; }
+.content { grid-area: content; }
+.scoreContainer { grid-area: scoreContainer; }
+.replyContainer { grid-area: replyContainer; }
+
+.username,
+.createdAt {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    justify-content: center;
+    color: var(--dark-blue);
+    font-weight: var(--medium);
+}
+
+.createdAt,
+.content {
+    color: var(--grayish-blue);
+}
+
+.content {
+    line-height: 1.6rem;
+}
+
+.scoreContainer,
+.replyContainer {
+    display: flex;
+}
+
+.scoreContainer {
+    width: 100px;
+    background: var(--very-light-gray);
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1fr;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.scoreContainer img {
+    max-width: 0.75rem !important;
+    max-height: 0.75rem !important;
+    min-width: 0.75rem !important;
+    min-height: 0.75rem !important;
+    object-fit: contain;
+}
+
+.scoreContainer p {
+    margin: 0;
+    text-align: center;
+    color: var(--moderate-blue);
+    font-weight: var(--medium);
+}
+
+.replyContainer {
+    width: 100px;
+    margin-left: auto;
+    color: var(--moderate-blue);
+    justify-content: flex-end;
+}
+
+.replyContainer img {
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    max-width: 15px !important;
+    min-height: 15px !important;
+    max-height: 15px !important;
+}
+
+.replyContainer p {
+    align-self: center;
+    margin-left: 0.5rem;
+}
