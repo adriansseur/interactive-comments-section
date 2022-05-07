@@ -11,6 +11,7 @@
     grid-template-rows: 40px auto 40px;
     grid-template-columns: 40px 130px auto;
     letter-spacing: 0.02rem;
+    margin-bottom: 1.2rem;
 }
 
 .commentContainer button {

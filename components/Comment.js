@@ -1,19 +1,26 @@
 import Image from "next/image"
 import styles from '../styles/Comment.module.css'
 
-export default function Comment({data}) {
+export default function Comment({
+    content,
+    createdAt,
+    score,
+    src,
+    username,
+    replies
+}) {
     return (
         <div className={styles.commentContainer}>
-            <p className={styles.username}>amyrobson</p>
+            <p className={styles.username}>{username}</p>
             <Image
                 className={styles.userImage}
-                src="/assets/avatars/image-amyrobson.png" 
+                src={src}
                 height={150}
                 width={150}
-                alt="amyrobson"
+                alt={username}
             />
-            <p className={styles.createdAt}>1 month ago</p>
-            <p className={styles.content}>Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and  the responsiveness at various breakpoints works really well.</p>
+            <p className={styles.createdAt}>{createdAt}</p>
+            <p className={styles.content}>{content}</p>
             <div className={styles.scoreContainer}>
                 <button>
                     <Image
@@ -23,7 +30,7 @@ export default function Comment({data}) {
                         alt="plus"
                     />
                 </button>
-                <p>12</p>
+                <p>{score}</p>
                 <button>
                     <Image
                         src="/assets/icons/icon-minus.svg"
