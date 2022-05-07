@@ -1,0 +1,13 @@
+.replyContainer {
+    width: 95%;
+    margin-left: auto;
+    display: flex;
+}
+
+.replyLine {
+    background: var(--light-gray);
+    height: 5px;
+    margin-right: 3%;
+    transform-origin: bottom left;
+    transform: rotateZ(90deg) scale(0.82);
+}
