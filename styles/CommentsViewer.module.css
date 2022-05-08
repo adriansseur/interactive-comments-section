@@ -18,3 +18,13 @@
     bottom: 1rem;
     right: 100%;
 }
+
+@media (min-width: 768px) {
+    .replyContainer {
+        width: 89%;
+    }
+
+    .replyLine {
+        right: 95%;
+    }
+}
