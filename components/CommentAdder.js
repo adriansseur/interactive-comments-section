@@ -16,7 +16,7 @@ export default function CommentAdder({ data, setData }) {
             "comments": [
                 ...prev.comments,
                 {
-                    "id": prev["comments"].length + 1,
+                    "id": generateNextId(prev),
                     "content": inputValue,
                     "createdAt": "now",
                     "score": 0,
@@ -26,6 +26,15 @@ export default function CommentAdder({ data, setData }) {
             ]
         }))
         setInputValue("")
+    }
+
+    function generateNextId(prev) {
+        const prevReplies = prev.comments.reduce((total, i) => {
+            return total + i.replies.length
+        }, 0)
+        const prevComments = prev.comments.length
+
+        return prevReplies + prevComments + 1
     }
     
     return (

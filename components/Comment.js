@@ -2,6 +2,7 @@ import Image from "next/image"
 import styles from '../styles/Comment.module.css'
 
 export default function Comment({
+    id,
     content,
     createdAt,
     score,
@@ -10,11 +11,13 @@ export default function Comment({
     replies,
     replyingTo,
     currentUser,
-    setViewDeleteModal
+    setViewDeleteModal,
+    setSelectedForDeletion
 }) {
 
-    function handleDeleteClick() {
+    function handleDeleteClick(id) {
         setViewDeleteModal(true)
+        setSelectedForDeletion(id)
     }
 
     return (
@@ -58,7 +61,7 @@ export default function Comment({
             {
                 username === currentUser ?
                     <div className={styles.manageContainer}>
-                        <button onClick={handleDeleteClick}>
+                        <button onClick={() => handleDeleteClick(id)}>
                             <div className={styles.deleteContainer}>
                                 <Image
                                     src="/assets/icons/icon-delete.svg"

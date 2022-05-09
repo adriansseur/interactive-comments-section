@@ -1,7 +1,7 @@
 import Comment from "../components/Comment"
 import styles from "../styles/CommentsViewer.module.css"
 
-export default function CommentsViewer({data, setViewDeleteModal}) {
+export default function CommentsViewer({data, setViewDeleteModal, setSelectedForDeletion}) {
 
     const commentElements = data.comments.map(comment => {
         const commentPackage = 
@@ -9,6 +9,7 @@ export default function CommentsViewer({data, setViewDeleteModal}) {
             // but causes issues with missing key props
             [<Comment
                 key={comment.id}
+                id={comment.id}
                 content={comment.content}
                 createdAt={comment.createdAt}
                 score={comment.score}
@@ -17,12 +18,14 @@ export default function CommentsViewer({data, setViewDeleteModal}) {
                 replies={comment.replies}
                 currentUser={data.currentUser.username}
                 setViewDeleteModal={setViewDeleteModal}
+                setSelectedForDeletion={setSelectedForDeletion}
             />]
         if (comment.replies.length !== 0) {
             const replyPackage = comment.replies.map(reply => (
                 <div className={styles.replyContainer}>
                     <Comment
                         key={reply.id}
+                        id={reply.id}
                         content={reply.content}
                         createdAt={reply.createdAt}
                         score={reply.score}
@@ -32,6 +35,7 @@ export default function CommentsViewer({data, setViewDeleteModal}) {
                         replyingTo={reply.replyingTo}
                         currentUser={data.currentUser.username}
                         setViewDeleteModal={setViewDeleteModal}
+                        setSelectedForDeletion={setSelectedForDeletion}
                     />
                 </div>
             ))

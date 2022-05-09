@@ -10,11 +10,13 @@ export default function App({ data, setData }) {
     const [viewDeleteModal, setViewDeleteModal] = useState(false)
     console.log(data)
 
+    const [selectedForDeletion, setSelectedForDeletion] = useState(null)
+
     return (
         <div className={styles.appContainer}>
-            <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} />
+            <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} setSelectedForDeletion={setSelectedForDeletion} />
             <CommentAdder data={data} setData={setData} />
-            {viewDeleteModal && <DeleteModal setViewDeleteModal={setViewDeleteModal} />}
+            {viewDeleteModal && <DeleteModal setViewDeleteModal={setViewDeleteModal} selectedForDeletion={selectedForDeletion} setData={setData} data={data} />}
         </div>
     )
 }
