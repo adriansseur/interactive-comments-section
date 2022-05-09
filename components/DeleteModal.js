@@ -11,8 +11,25 @@ export default function DeleteModal({setViewDeleteModal, selectedForDeletion, se
             ...prev,
             "comments": prev.comments.filter(i => i.id !== selectedForDeletion)
         }))
-        // add functionality to delete replies too
+        setData(prev => ({
+            ...prev,
+            "comments": filterReplies(prev)
+        }))
         setViewDeleteModal(false)
+    }
+
+    function filterReplies(prev) {
+        const commentsClone = prev.comments
+        for (let i of commentsClone) {
+            if (i.replies.length !== 0) {
+                for (let j of i.replies) {
+                    if (j.id === selectedForDeletion) {
+                        i.replies.splice(i.replies.indexOf(j), 1)
+                    }
+                }
+            }
+        }
+        return commentsClone
     }
     
     return (
