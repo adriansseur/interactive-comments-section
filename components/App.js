@@ -12,10 +12,15 @@ export default function App({ data, setData }) {
 
     const [selectedForDeletion, setSelectedForDeletion] = useState(null)
 
+    const [selectedForReply, setSelectedForReply] = useState({
+        id: null,
+        cta: "REPLY",
+    })
+
     return (
         <div className={styles.appContainer}>
-            <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} setSelectedForDeletion={setSelectedForDeletion} />
-            <CommentAdder data={data} setData={setData} />
+            <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} setSelectedForDeletion={setSelectedForDeletion} setSelectedForReply={setSelectedForReply} selectedForReply={selectedForReply} setData={setData} />
+            {selectedForReply.id === null && <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} />}
             {viewDeleteModal && <DeleteModal setViewDeleteModal={setViewDeleteModal} selectedForDeletion={selectedForDeletion} setData={setData} data={data} />}
         </div>
     )

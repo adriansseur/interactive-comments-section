@@ -1,7 +1,8 @@
 import Comment from "../components/Comment"
 import styles from "../styles/CommentsViewer.module.css"
+import CommentAdder from "./CommentAdder"
 
-export default function CommentsViewer({data, setViewDeleteModal, setSelectedForDeletion}) {
+export default function CommentsViewer({data, setViewDeleteModal, setSelectedForDeletion, setSelectedForReply, selectedForReply, setData}) {
 
     const commentElements = data.comments.map(comment => {
         const commentPackage = 
@@ -19,11 +20,12 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
                 currentUser={data.currentUser.username}
                 setViewDeleteModal={setViewDeleteModal}
                 setSelectedForDeletion={setSelectedForDeletion}
+                setSelectedForReply={setSelectedForReply}
             />]
         if (comment.replies.length !== 0) {
-            const replyPackage = comment.replies.map(reply => (
-                <div className={styles.replyContainer}>
-                    <Comment
+            const replyPackage = comment.replies.map(reply => {
+                const subReplyPackage = 
+                    [<Comment
                         key={reply.id}
                         id={reply.id}
                         content={reply.content}
@@ -36,15 +38,28 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
                         currentUser={data.currentUser.username}
                         setViewDeleteModal={setViewDeleteModal}
                         setSelectedForDeletion={setSelectedForDeletion}
-                    />
+                        setSelectedForReply={setSelectedForReply}
+                    />]
+                if (reply.id === selectedForReply.id) {
+                    subReplyPackage.push(
+                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} />
+                    )  
+                }
+                return <div className={styles.replyContainer}>
+                    {subReplyPackage}
                 </div>
-            ))
+            })
             commentPackage.push(
                 <div className={styles.replyContainerWrapper}>
                     <div className={styles.replyLine}></div>
                     {replyPackage}
                 </div>
             )
+        }
+        if (comment.id === selectedForReply.id) {
+            commentPackage.push(
+                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} />
+            )  
         }
         return commentPackage
     })

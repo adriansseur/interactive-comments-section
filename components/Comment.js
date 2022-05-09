@@ -12,12 +12,17 @@ export default function Comment({
     replyingTo,
     currentUser,
     setViewDeleteModal,
-    setSelectedForDeletion
+    setSelectedForDeletion,
+    setSelectedForReply
 }) {
 
     function handleDeleteClick(id) {
         setViewDeleteModal(true)
         setSelectedForDeletion(id)
+    }
+
+    function handleReplyClick(id) {
+        setSelectedForReply(prev => ({...prev, id: id}))
     }
 
     return (
@@ -84,7 +89,7 @@ export default function Comment({
                             </div>
                         </button>
                     </div> :
-                        <button>
+                        <button onClick={() => handleReplyClick(id)}>
                             <div className={styles.replyContainer}>
                                 <Image
                                     src="/assets/icons/icon-reply.svg"

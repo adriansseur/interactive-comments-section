@@ -2,7 +2,7 @@ import styles from '../styles/CommentAdder.module.css'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function CommentAdder({ data, setData }) {
+export default function CommentAdder({ data, setData, selectedForReply }) {
     
     const [inputValue, setInputValue] = useState('')
 
@@ -36,7 +36,7 @@ export default function CommentAdder({ data, setData }) {
 
         return prevReplies + prevComments + 1
     }
-    
+
     return (
         <div className={styles.commentAdderContainer}>
               <Image
@@ -45,8 +45,10 @@ export default function CommentAdder({ data, setData }) {
                     width={144}
                     alt={data.currentUser.username}
             />
-            <textarea onChange={handleOnChange} value={inputValue} className={styles.input} type="text" placeholder='Add a comment...'/>
-            <button onClick={handleSend} className={styles.send}>SEND</button>
+            <textarea onChange={handleOnChange} value={inputValue} className={styles.input} type="text" placeholder={`Add a ${selectedForReply.id !== null ? selectedForReply.cta.toLowerCase() : "comment"}...`}/>
+            <button onClick={handleSend} className={styles.send}>
+                {selectedForReply.id !== null ? selectedForReply.cta : "SEND"}
+            </button>
         </div>
     )
 }

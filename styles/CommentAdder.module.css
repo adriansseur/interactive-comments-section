@@ -9,6 +9,7 @@
     grid-template-rows: 100px auto;
     grid-template-columns: auto auto;
     row-gap: 1rem;
+    margin-bottom: 1.2rem;
 }
 
 .commentAdderContainer img { grid-area: image; }
