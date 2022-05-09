@@ -9,8 +9,14 @@ export default function Comment({
     username,
     replies,
     replyingTo,
-    currentUser
+    currentUser,
+    setViewDeleteModal
 }) {
+
+    function handleDeleteClick() {
+        setViewDeleteModal(true)
+    }
+
     return (
         <div className={styles.commentContainer}>
             <p className={styles.username}>
@@ -52,7 +58,7 @@ export default function Comment({
             {
                 username === currentUser ?
                     <div className={styles.manageContainer}>
-                        <button>
+                        <button onClick={handleDeleteClick}>
                             <div className={styles.deleteContainer}>
                                 <Image
                                     src="/assets/icons/icon-delete.svg"

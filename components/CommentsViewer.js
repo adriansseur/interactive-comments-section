@@ -1,7 +1,7 @@
 import Comment from "../components/Comment"
 import styles from "../styles/CommentsViewer.module.css"
 
-export default function CommentsViewer({data}) {
+export default function CommentsViewer({data, setViewDeleteModal}) {
 
     const commentElements = data.comments.map(comment => {
         const commentPackage = 
@@ -16,6 +16,7 @@ export default function CommentsViewer({data}) {
                 username={comment.user.username}
                 replies={comment.replies}
                 currentUser={data.currentUser.username}
+                setViewDeleteModal={setViewDeleteModal}
             />]
         if (comment.replies.length !== 0) {
             const replyPackage = comment.replies.map(reply => (
@@ -30,6 +31,7 @@ export default function CommentsViewer({data}) {
                         replies={reply.replies}
                         replyingTo={reply.replyingTo}
                         currentUser={data.currentUser.username}
+                        setViewDeleteModal={setViewDeleteModal}
                     />
                 </div>
             ))
@@ -42,7 +44,6 @@ export default function CommentsViewer({data}) {
         }
         return commentPackage
     })
-    console.log(commentElements)
 
     return (
         <div className="comments-view-container">

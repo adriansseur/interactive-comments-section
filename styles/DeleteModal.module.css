@@ -1,0 +1,63 @@
+.modalWrapper{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.deleteModalContainer {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: calc(100vw - 3rem);
+    position: fixed;
+    top: 50%;
+    margin-left: 1.5rem;
+    transform: translateY(-50%);
+}
+
+.deleteModalContainer button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-size: 100%;
+    color: white;
+    font-weight: var(--bold);
+}
+
+.title {
+    margin-top: 0;
+    font-weight: var(--light);
+}
+
+.content {
+    color: var(--grayish-blue);
+    opacity: 0.75;
+    line-height: 1.6rem;
+}
+
+.btnContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.cancel {
+    background: var(--grayish-blue);
+}
+
+.delete {
+    background: var(--soft-red);
+}
+
+@media (min-width: 473px) {
+    .deleteModalContainer {
+        max-width: auto;
+        width: 425px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0 auto;
+    }
+}
