@@ -53,6 +53,14 @@
     border: none;
 }
 
+.send:hover {
+    filter: opacity(0.4) drop-shadow(0 0 0 var(--very-light-gray))
+}
+
+.send:focus {
+    outline: 3px solid var(--soft-red);
+}
+
 @media (min-width: 768px) {
     .commentAdderContainer {
         grid-template-areas: 

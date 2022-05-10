@@ -150,6 +150,15 @@
     color: var(--moderate-blue);
 }
 
+.replyContainer:hover,
+.editContainer:hover {
+    filter: opacity(0.4) drop-shadow(0 0 0 var(--very-light-gray))
+}
+
+.deleteContainer:hover {
+    filter: opacity(0.4) drop-shadow(0 0 0 var(--pale-red));
+}
+
 @media (min-width: 426px) and (max-width: 767px) {
     .createdAt {
         justify-content: flex-end;

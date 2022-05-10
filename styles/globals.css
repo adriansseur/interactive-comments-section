@@ -32,3 +32,8 @@ button:hover,
 textarea:hover {
   cursor: pointer;
 }
+
+button:focus,
+textarea:focus {
+  outline: 1px solid var(--moderate-blue);
+}
