@@ -83,7 +83,7 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
         return prevReplies + prevComments + 1
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className={styles.commentAdderContainer}>
