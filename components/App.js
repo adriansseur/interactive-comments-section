@@ -8,7 +8,6 @@ import { useState } from 'react'
 export default function App({ data, setData }) {
 
     const [viewDeleteModal, setViewDeleteModal] = useState(false)
-    console.log(data)
 
     const [selectedForDeletion, setSelectedForDeletion] = useState(null)
 
@@ -20,7 +19,7 @@ export default function App({ data, setData }) {
     return (
         <div className={styles.appContainer}>
             <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} setSelectedForDeletion={setSelectedForDeletion} setSelectedForReply={setSelectedForReply} selectedForReply={selectedForReply} setData={setData} />
-            {selectedForReply.id === null && <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} />}
+            {selectedForReply.id === null && <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />}
             {viewDeleteModal && <DeleteModal setViewDeleteModal={setViewDeleteModal} selectedForDeletion={selectedForDeletion} setData={setData} data={data} />}
         </div>
     )

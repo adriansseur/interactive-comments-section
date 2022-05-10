@@ -42,13 +42,18 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
                     />]
                 if (reply.id === selectedForReply.id) {
                     subReplyPackage.push(
-                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} />
+                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />
                     )  
                 }
                 return <div className={styles.replyContainer}>
                     {subReplyPackage}
                 </div>
             })
+            if (comment.id === selectedForReply.id) {
+                commentPackage.push(
+                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />
+                )  
+            }
             commentPackage.push(
                 <div className={styles.replyContainerWrapper}>
                     <div className={styles.replyLine}></div>
@@ -58,7 +63,7 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
         }
         if (comment.id === selectedForReply.id) {
             commentPackage.push(
-                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} />
+                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />
             )  
         }
         return commentPackage
