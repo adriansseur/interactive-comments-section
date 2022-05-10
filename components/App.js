@@ -16,11 +16,15 @@ export default function App({ data, setData }) {
         cta: "REPLY",
     })
 
+    const [selectedForEdit, setSelectedForEdit] = useState(null)
+
     return (
         <div className={styles.appContainer}>
-            <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} setSelectedForDeletion={setSelectedForDeletion} setSelectedForReply={setSelectedForReply} selectedForReply={selectedForReply} setData={setData} />
-            {selectedForReply.id === null && <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />}
-            {viewDeleteModal && <DeleteModal setViewDeleteModal={setViewDeleteModal} selectedForDeletion={selectedForDeletion} setData={setData} data={data} />}
+            <CommentsViewer data={data} setViewDeleteModal={setViewDeleteModal} setSelectedForDeletion={setSelectedForDeletion} setSelectedForReply={setSelectedForReply} selectedForReply={selectedForReply} setData={setData} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
+
+            {(selectedForReply.id === null && selectedForEdit === null) && <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />}
+
+            {viewDeleteModal && <DeleteModal setViewDeleteModal={setViewDeleteModal} selectedForDeletion={selectedForDeletion} setData={setData} data={data} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import styles from '../styles/DeleteModal.module.css'
 
-export default function DeleteModal({setViewDeleteModal, selectedForDeletion, setData, data}) {
+export default function DeleteModal({setViewDeleteModal, selectedForDeletion, setData, data, selectedForEdit, setSelectedForEdit}) {
 
     function handleCancelClick() {
         setViewDeleteModal(false)
@@ -15,6 +15,9 @@ export default function DeleteModal({setViewDeleteModal, selectedForDeletion, se
             ...prev,
             "comments": filterReplies(prev)
         }))
+        if (selectedForDeletion === selectedForEdit) {
+            setSelectedForEdit(null)
+        }
         setViewDeleteModal(false)
     }
 

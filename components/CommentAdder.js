@@ -2,7 +2,7 @@ import styles from '../styles/CommentAdder.module.css'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function CommentAdder({ data, setData, selectedForReply, setSelectedForReply }) {
+export default function CommentAdder({ data, setData, selectedForReply, setSelectedForReply, selectedForEdit }) {
     
     const [inputValue, setInputValue] = useState('')
 
@@ -83,7 +83,28 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
         return prevReplies + prevComments + 1
     }
 
-    // console.log(data)
+    let cta = "SEND"
+    if (selectedForReply.id !== null) { cta = selectedForReply.cta }
+    if (selectedForEdit !== null) { cta = "UPDATE" }
+    
+    function findValue(selectedForEditId) {
+        for (let i of data.comments) {
+            if (i.id === selectedForEditId) {
+                return i.replyingTo !== undefined ?
+                    "@ " + i.replyingTo + " " + i.content :
+                    i.content
+            }
+            if (i.replies.length !== 0) {
+                for (let j of i.replies) {
+                    if (j.id === selectedForEditId) {
+                        return j.replyingTo !== undefined ?
+                        "@" + j.replyingTo + " " + j.content :
+                        j.content
+                    }
+                }
+            }
+        }
+    }
 
     return (
         <div className={styles.commentAdderContainer}>
@@ -93,9 +114,19 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
                     width={144}
                     alt={data.currentUser.username}
             />
-            <textarea onChange={handleOnChange} value={inputValue} className={styles.input} type="text" placeholder={`Add a ${selectedForReply.id !== null ? selectedForReply.cta.toLowerCase() : "comment"}...`}/>
+            <textarea
+                onChange={handleOnChange}
+                value={
+                    selectedForEdit !== null ?
+                        findValue(selectedForEdit) :
+                        inputValue
+                }
+                className={styles.input}
+                type="text"
+                placeholder={`Add a ${selectedForReply.id !== null ? selectedForReply.cta.toLowerCase() : "comment"}...`}
+            />
             <button onClick={handleSend} className={styles.send}>
-                {selectedForReply.id !== null ? selectedForReply.cta : "SEND"}
+                {cta}
             </button>
         </div>
     )

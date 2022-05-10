@@ -2,7 +2,9 @@ import Comment from "../components/Comment"
 import styles from "../styles/CommentsViewer.module.css"
 import CommentAdder from "./CommentAdder"
 
-export default function CommentsViewer({data, setViewDeleteModal, setSelectedForDeletion, setSelectedForReply, selectedForReply, setData}) {
+export default function CommentsViewer({ data, setViewDeleteModal, setSelectedForDeletion, setSelectedForReply, selectedForReply, setData, selectedForEdit, setSelectedForEdit }) {
+    
+    let commentAdderPushed = false
 
     const commentElements = data.comments.map(comment => {
         const commentPackage = 
@@ -21,6 +23,11 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
                 setViewDeleteModal={setViewDeleteModal}
                 setSelectedForDeletion={setSelectedForDeletion}
                 setSelectedForReply={setSelectedForReply}
+                data={data}
+                setData={setData}
+                selectedForReply={selectedForReply}
+                selectedForEdit={selectedForEdit}
+                setSelectedForEdit={setSelectedForEdit}
             />]
         if (comment.replies.length !== 0) {
             const replyPackage = comment.replies.map(reply => {
@@ -39,11 +46,16 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
                         setViewDeleteModal={setViewDeleteModal}
                         setSelectedForDeletion={setSelectedForDeletion}
                         setSelectedForReply={setSelectedForReply}
+                        data={data}
+                        setData={setData}
+                        selectedForReply={selectedForReply}
+                        selectedForEdit={selectedForEdit}
+                        setSelectedForEdit={setSelectedForEdit}
                     />]
                 if (reply.id === selectedForReply.id) {
                     subReplyPackage.push(
-                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />
-                    )  
+                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                    )
                 }
                 return <div className={styles.replyContainer}>
                     {subReplyPackage}
@@ -51,8 +63,9 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
             })
             if (comment.id === selectedForReply.id) {
                 commentPackage.push(
-                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />
-                )  
+                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                    )  
+                    commentAdderPushed = true
             }
             commentPackage.push(
                 <div className={styles.replyContainerWrapper}>
@@ -61,9 +74,9 @@ export default function CommentsViewer({data, setViewDeleteModal, setSelectedFor
                 </div>
             )
         }
-        if (comment.id === selectedForReply.id) {
+        if (comment.id === selectedForReply.id && !commentAdderPushed) {
             commentPackage.push(
-                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} />
+                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
             )  
         }
         return commentPackage

@@ -34,6 +34,7 @@
     padding: 1rem 1.5rem;
     line-height: 1.6rem;
     color: var(--grayish-blue);
+    /* min-height: 10rem; */
 }
 
 .input::placeholder {
@@ -55,10 +56,6 @@
 
 .send:hover {
     filter: opacity(0.4) drop-shadow(0 0 0 var(--very-light-gray))
-}
-
-.send:focus {
-    outline: 3px solid var(--soft-red);
 }
 
 @media (min-width: 768px) {

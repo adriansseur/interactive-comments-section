@@ -159,6 +159,35 @@
     filter: opacity(0.4) drop-shadow(0 0 0 var(--pale-red));
 }
 
+.editContentContainer {
+    /* border: 3px solid red; */
+    grid-area: 2 / 1 / 2 / -1;
+}
+
+.editContentContainer > div {
+    /* border: 10px solid blue; */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.editContentContainer img {
+    display: none !important;
+}
+
+.editContentContainer button {
+    background: var(--moderate-blue);
+    color: white;
+    font-size: 100%;
+    font-weight: var(--medium);
+    width: fit-content;
+    justify-self: flex-end;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    border: none;
+    align-self: flex-end;
+}
+
 @media (min-width: 426px) and (max-width: 767px) {
     .createdAt {
         justify-content: flex-end;
@@ -192,5 +221,13 @@
 
     .manageContainer {
         grid-area: replyContainer;
+    }
+
+    .editContentContainer {
+        grid-area: 2 / 2 / 2 / -1;
+    }
+
+    .editContentContainer > div {
+        margin-bottom: 0;
     }
 }

@@ -1,5 +1,7 @@
 import Image from "next/image"
 import styles from '../styles/Comment.module.css'
+import { useState } from "react"
+import CommentAdder from "./CommentAdder"
 
 export default function Comment({
     id,
@@ -13,7 +15,12 @@ export default function Comment({
     currentUser,
     setViewDeleteModal,
     setSelectedForDeletion,
-    setSelectedForReply
+    setSelectedForReply,
+    data,
+    setData,
+    selectedForReply,
+    selectedForEdit,
+    setSelectedForEdit
 }) {
 
     function handleDeleteClick(id) {
@@ -22,7 +29,16 @@ export default function Comment({
     }
 
     function handleReplyClick(id) {
-        setSelectedForReply(prev => ({...prev, id: id}))
+        setSelectedForReply(prev => ({ ...prev, id: id }))
+        setSelectedForEdit(null)
+    }
+
+    function handleEditClick(id) {
+        setSelectedForReply({
+            id: null,
+            cta: "REPLY"
+        })
+        setSelectedForEdit(id)
     }
 
     return (
@@ -39,11 +55,20 @@ export default function Comment({
                 alt={username}
             />
             <p className={styles.createdAt}>{createdAt}</p>
-            <p className={styles.content}>
-                {replyingTo !== undefined ?
-                    <span className={styles.replyingTo}>@{replyingTo}</span> :
-                    <span></span>}
-                {" " + content}</p>
+            {(selectedForEdit === null || selectedForEdit !== id)
+                ?
+                <p className={styles.content}>
+                    {
+                        replyingTo !== undefined ?
+                        <span className={styles.replyingTo}>@{replyingTo}</span> : <span></span>
+                    }
+                        {" " + content}
+                </p>
+                :
+                <div className={styles.editContentContainer}>
+                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                </div>
+            }
             <div className={styles.scoreContainer}>
                 <button>
                     <Image
@@ -77,7 +102,7 @@ export default function Comment({
                                 <p>Delete</p>
                             </div>
                         </button>
-                        <button>
+                        <button onClick={() => handleEditClick(id)}>
                             <div className={styles.editContainer}>
                                 <Image
                                     src="/assets/icons/icon-edit.svg"
