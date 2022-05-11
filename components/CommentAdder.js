@@ -62,7 +62,9 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
                 const commentsClone = prev.comments
                 for (let i of commentsClone) {
                     if (i.id === selectedForEdit) {
-                        i.content = inputValue.substring(i.replyingTo.length + 2)
+                        i.content = i.replyingTo !== undefined ?
+                            inputValue.substring(i.replyingTo.length + 2) :
+                            inputValue
                     }
                     if (i.replies.length !== 0) {
                         for (let j of i.replies) {
