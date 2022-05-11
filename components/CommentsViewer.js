@@ -3,14 +3,14 @@ import styles from "../styles/CommentsViewer.module.css"
 import CommentAdder from "./CommentAdder"
 
 export default function CommentsViewer({ data, setViewDeleteModal, setSelectedForDeletion, setSelectedForReply, selectedForReply, setData, selectedForEdit, setSelectedForEdit }) {
-    
-    let commentAdderPushed = false
 
-    const commentElements = data.comments.map(comment => {
-        const commentPackage = 
-            // having the following be wrapped by array allows me to push
-            // but causes issues with missing key props
-            [<Comment
+    let uniqueKey = -1
+    let commentAdderPushed = false
+    let commentElements = []
+    let replyPackage = []
+    for (let comment of data.comments) {
+        commentElements.push(
+            <Comment
                 key={comment.id}
                 id={comment.id}
                 content={comment.content}
@@ -28,11 +28,20 @@ export default function CommentsViewer({ data, setViewDeleteModal, setSelectedFo
                 selectedForReply={selectedForReply}
                 selectedForEdit={selectedForEdit}
                 setSelectedForEdit={setSelectedForEdit}
-            />]
+            />
+        )
+        // if replying to a comment with previous replies
+        if (comment.id === selectedForReply.id) {
+            commentElements.push(
+                <CommentAdder key={uniqueKey} data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
+                )  
+            uniqueKey--
+            commentAdderPushed = true
+        }
         if (comment.replies.length !== 0) {
-            const replyPackage = comment.replies.map(reply => {
-                const subReplyPackage = 
-                    [<Comment
+            for (let reply of comment.replies) {
+                replyPackage.push(
+                    <Comment
                         key={reply.id}
                         id={reply.id}
                         content={reply.content}
@@ -51,36 +60,36 @@ export default function CommentsViewer({ data, setViewDeleteModal, setSelectedFo
                         selectedForReply={selectedForReply}
                         selectedForEdit={selectedForEdit}
                         setSelectedForEdit={setSelectedForEdit}
-                    />]
+                    />
+                )
+                // if replying to a reply
                 if (reply.id === selectedForReply.id) {
-                    subReplyPackage.push(
-                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
+                    replyPackage.push(
+                        <CommentAdder key={uniqueKey} data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
                     )
+                    uniqueKey--
                 }
-                return <div className={styles.replyContainer}>
-                    {subReplyPackage}
-                </div>
-            })
-            if (comment.id === selectedForReply.id) {
-                commentPackage.push(
-                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
-                    )  
-                    commentAdderPushed = true
             }
-            commentPackage.push(
-                <div className={styles.replyContainerWrapper}>
+
+            commentElements.push(
+                <div key={uniqueKey} className={styles.replyContainerWrapper}>
                     <div className={styles.replyLine}></div>
-                    {replyPackage}
+                    <div className={styles.replyContainer}>
+                        {replyPackage}
+                    </div>
                 </div>
             )
+            uniqueKey--
+            replyPackage = []
         }
+        // if replying to a comment with no replies
         if (comment.id === selectedForReply.id && !commentAdderPushed) {
-            commentPackage.push(
-                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
+            commentElements.push(
+                <CommentAdder key={uniqueKey} data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
             )  
+            uniqueKey--
         }
-        return commentPackage
-    })
+    }
 
     return (
         <div className="comments-view-container">
@@ -88,4 +97,3 @@ export default function CommentsViewer({ data, setViewDeleteModal, setSelectedFo
         </div>
     )
 }
-
