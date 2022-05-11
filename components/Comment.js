@@ -41,6 +41,44 @@ export default function Comment({
         setSelectedForEdit(id)
     }
 
+    function handleScoreClick(id, operator) {
+        console.log(`data before:`)
+        console.log(data)
+        setData(prev => {
+            const commentsClone = prev.comments
+            for (let i of commentsClone) {
+                if (i.id === id) {
+                    if (operator === "plus") {
+                        console.log(`score before: ${i.score}`)
+                        i.score++
+                        console.log(`score after: ${i.score}`)
+                    }
+                    else if (operator === "minus") {
+                        i.score--
+                    }
+                }
+                if (i.replies.length !== 0) {
+                    for (let j of i.replies) {
+                        if (j.id === id) {
+                            if (operator === "plus") {
+                                j.score++
+                            }
+                            else if (operator === "minus") {
+                                j.score--
+                            }
+                        }
+                    }
+                }
+            }
+            return ({
+                ...prev,
+                "comments": commentsClone
+            })
+        })
+        console.log(`data after:`)
+        console.log(data)
+    }
+
     return (
         <div className={styles.commentContainer}>
             <p className={styles.username}>
@@ -70,7 +108,7 @@ export default function Comment({
                 </div>
             }
             <div className={styles.scoreContainer}>
-                <button>
+                <button onClick={() => handleScoreClick(id, "plus")}>
                     <Image
                         src="/assets/icons/icon-plus.svg"
                         height={150}
@@ -79,7 +117,7 @@ export default function Comment({
                     />
                 </button>
                 <p>{score}</p>
-                <button>
+                <button onClick={() => handleScoreClick(id, "minus")}>
                     <Image
                         src="/assets/icons/icon-minus.svg"
                         height={150}

@@ -56,7 +56,7 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
         
         if (selectedForEdit !== null) {
             setData(prev => {
-                // instead of using the substring function
+                // instead of using the substring method
                 // should filter through to remove 
                 // what starts with "@" and ends with " "
                 const commentsClone = prev.comments
@@ -78,7 +78,6 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
                 }
             })
             setSelectedForEdit(null)
-            console.log(selectedForEdit)
         }
         
         if (selectedForReply.id === null && selectedForEdit === null) {
