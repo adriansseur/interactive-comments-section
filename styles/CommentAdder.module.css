@@ -34,7 +34,6 @@
     padding: 1rem 1.5rem;
     line-height: 1.6rem;
     color: var(--grayish-blue);
-    /* min-height: 10rem; */
 }
 
 .input::placeholder {

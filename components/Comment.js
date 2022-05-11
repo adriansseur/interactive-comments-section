@@ -1,6 +1,6 @@
 import Image from "next/image"
 import styles from '../styles/Comment.module.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CommentAdder from "./CommentAdder"
 
 export default function Comment({
@@ -23,6 +23,12 @@ export default function Comment({
     setSelectedForEdit
 }) {
 
+    const [scoreClickData, setScoreClickData] = useState({
+        clicked: false,
+        id: null,
+        operator: null
+    })
+
     function handleDeleteClick(id) {
         setViewDeleteModal(true)
         setSelectedForDeletion(id)
@@ -41,29 +47,25 @@ export default function Comment({
         setSelectedForEdit(id)
     }
 
-    function handleScoreClick(id, operator) {
-        console.log(`data before:`)
-        console.log(data)
+    useEffect(() => {
         setData(prev => {
             const commentsClone = prev.comments
             for (let i of commentsClone) {
-                if (i.id === id) {
-                    if (operator === "plus") {
-                        console.log(`score before: ${i.score}`)
+                if (i.id === scoreClickData.id) {
+                    if (scoreClickData.operator === "plus") {
                         i.score++
-                        console.log(`score after: ${i.score}`)
                     }
-                    else if (operator === "minus") {
+                    else if (scoreClickData.operator === "minus") {
                         i.score--
                     }
                 }
                 if (i.replies.length !== 0) {
                     for (let j of i.replies) {
-                        if (j.id === id) {
-                            if (operator === "plus") {
+                        if (j.id === scoreClickData.id) {
+                            if (scoreClickData.operator === "plus") {
                                 j.score++
                             }
-                            else if (operator === "minus") {
+                            else if (scoreClickData.operator === "minus") {
                                 j.score--
                             }
                         }
@@ -75,9 +77,12 @@ export default function Comment({
                 "comments": commentsClone
             })
         })
-        console.log(`data after:`)
-        console.log(data)
-    }
+        setScoreClickData({
+            clicked: false,
+            id: null,
+            operator: null
+        })
+    }, [scoreClickData.clicked])
 
     return (
         <div className={styles.commentContainer}>
@@ -108,7 +113,7 @@ export default function Comment({
                 </div>
             }
             <div className={styles.scoreContainer}>
-                <button onClick={() => handleScoreClick(id, "plus")}>
+                <button onClick={() => setScoreClickData({clicked: true, id: id, operator: "plus"})}>
                     <Image
                         src="/assets/icons/icon-plus.svg"
                         height={150}
@@ -117,7 +122,7 @@ export default function Comment({
                     />
                 </button>
                 <p>{score}</p>
-                <button onClick={() => handleScoreClick(id, "minus")}>
+                <button onClick={() => setScoreClickData({clicked: true, id: id, operator: "minus"})}>
                     <Image
                         src="/assets/icons/icon-minus.svg"
                         height={150}
