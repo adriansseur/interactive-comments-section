@@ -1,9 +1,10 @@
 import styles from '../styles/CommentAdder.module.css'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
-export default function CommentAdder({ data, setData, selectedForReply, setSelectedForReply, selectedForEdit }) {
+export default function CommentAdder({ data, setData, selectedForReply, setSelectedForReply, selectedForEdit, setSelectedForEdit }) {
     
+    const input = useRef(null)
     const [inputValue, setInputValue] = useState('')
 
     function handleOnChange(e) {
@@ -51,7 +52,36 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
                     "comments": commentsClone
                 }
             })
-        } else {
+        }
+        
+        if (selectedForEdit !== null) {
+            setData(prev => {
+                // instead of using the substring function
+                // should filter through to remove 
+                // what starts with "@" and ends with " "
+                const commentsClone = prev.comments
+                for (let i of commentsClone) {
+                    if (i.id === selectedForEdit) {
+                        i.content = inputValue.substring(i.replyingTo.length + 2)
+                    }
+                    if (i.replies.length !== 0) {
+                        for (let j of i.replies) {
+                            if (j.id === selectedForEdit) {
+                                j.content = inputValue.substring((j.replyingTo.length + 2))
+                            }
+                        }
+                    }
+                }
+                return {
+                    ...prev,
+                    "comments": commentsClone
+                }
+            })
+            setSelectedForEdit(null)
+            console.log(selectedForEdit)
+        }
+        
+        if (selectedForReply.id === null && selectedForEdit === null) {
             setData(prev => ({
                 ...prev,
                 "comments": [
@@ -67,11 +97,11 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
                 ]
             }))
         }
-        setInputValue("")
         setSelectedForReply({
             id: null,
             cta: "REPLY"
         })
+        input.current.value = ""
     }
 
     function generateNextId(prev) {
@@ -115,8 +145,9 @@ export default function CommentAdder({ data, setData, selectedForReply, setSelec
                     alt={data.currentUser.username}
             />
             <textarea
+                ref={input}
                 onChange={handleOnChange}
-                value={
+                defaultValue={
                     selectedForEdit !== null ?
                         findValue(selectedForEdit) :
                         inputValue

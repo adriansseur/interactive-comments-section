@@ -66,7 +66,7 @@ export default function Comment({
                 </p>
                 :
                 <div className={styles.editContentContainer}>
-                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
                 </div>
             }
             <div className={styles.scoreContainer}>

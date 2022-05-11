@@ -54,7 +54,7 @@ export default function CommentsViewer({ data, setViewDeleteModal, setSelectedFo
                     />]
                 if (reply.id === selectedForReply.id) {
                     subReplyPackage.push(
-                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                        <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
                     )
                 }
                 return <div className={styles.replyContainer}>
@@ -63,7 +63,7 @@ export default function CommentsViewer({ data, setViewDeleteModal, setSelectedFo
             })
             if (comment.id === selectedForReply.id) {
                 commentPackage.push(
-                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                    <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
                     )  
                     commentAdderPushed = true
             }
@@ -76,7 +76,7 @@ export default function CommentsViewer({ data, setViewDeleteModal, setSelectedFo
         }
         if (comment.id === selectedForReply.id && !commentAdderPushed) {
             commentPackage.push(
-                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} />
+                <CommentAdder data={data} setData={setData} selectedForReply={selectedForReply} setSelectedForReply={setSelectedForReply} selectedForEdit={selectedForEdit} setSelectedForEdit={setSelectedForEdit} />
             )  
         }
         return commentPackage
