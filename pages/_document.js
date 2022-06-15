@@ -8,6 +8,7 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet" />
+        <meta name="google-site-verification" content="L8vVyvBwYScCo7cR-ZNfeiOCeek097r6yyvWBp5pRb0" />
       </Head>
       <body>
         <Main />
